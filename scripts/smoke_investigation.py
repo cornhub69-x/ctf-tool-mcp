@@ -32,6 +32,7 @@ async def main() -> int:
         "duachuot_platform",
         "duachuot_plan",
         "duachuot_win_probe",
+        "duachuot_forensics_triage",
     }
     missing = expected - names
     if missing:

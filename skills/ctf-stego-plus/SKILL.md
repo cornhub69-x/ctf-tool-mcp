@@ -5,10 +5,11 @@ description: Solve CTF steganography: signature scan (binwalk), LSB/plane analys
 
 # CTF Stego Plus
 
-Pipeline (follow in order):
+## Pipeline (follow in order):
 
-1. **Signature scan**: `duachuot_stego_probe` — binwalk + steghide info. Binwalk finds appended/embedded files; steghide confirms passphrase-protected payloads.
-2. **LSB / plane analysis**: zsteg for PNG/BMP LSB; channel noise comparison (LSB plane of R/G/B vs random) to detect hidden data; stegsolve manual review when needed.
+1. **Carrier Deep Scan & Triage**: `duachuot_stego_probe` or CLI `ctftool forensics stego <path>`. Automatically parses PNG chunks, verifies IHDR CRC to detect & calculate repaired dimensions, detects trailing overlay payloads (data after IEND / EOI), extracts comments (tEXt, zTXt, JPEG COM), and calculates Shannon entropy.
+2. **Signature scan**: binwalk + steghide info. Binwalk finds appended/embedded files; steghide confirms passphrase-protected payloads.
+3. **LSB / plane analysis**: pure-Python audio LSB bias deviation analyzer (`_lsb_analysis`); zsteg / stegolsb for image LSB.
 3. **Carve**: foremost/binwalk -e into a scratch directory (never on the original).
 4. **Payload decode**: once carved, strings/xxd/file; apply common encodings (base64, zlib, XOR with hint key).
 5. **Passphrase hints**: filename, metadata comments, challenge description, EXIF Software field.

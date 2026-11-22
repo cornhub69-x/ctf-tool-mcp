@@ -1,6 +1,9 @@
 from __future__ import annotations
 
-import fcntl
+try:
+    import fcntl
+except ImportError:  # Windows fallback
+    fcntl = None
 import os
 import stat
 import uuid
@@ -246,7 +249,8 @@ def replace_text_in_file(
     resolved = resolve_host_path(path, must_exist=True, expect_directory=False)
     fd = _open_regular_file(resolved, os.O_RDONLY)
     try:
-        fcntl.flock(fd, fcntl.LOCK_EX)
+        if fcntl:
+            fcntl.flock(fd, fcntl.LOCK_EX)
         file_size = os.fstat(fd).st_size
         if file_size > app.config.MAX_SINGLE_FILE_BYTES:
             raise ValueError(
@@ -284,7 +288,8 @@ def append_text_file(path: str, content: str) -> dict[str, Any]:
     resolved.parent.mkdir(parents=True, exist_ok=True)
     fd = _open_regular_file(resolved, os.O_WRONLY | os.O_APPEND | os.O_CREAT)
     try:
-        fcntl.flock(fd, fcntl.LOCK_EX)
+        if fcntl:
+            fcntl.flock(fd, fcntl.LOCK_EX)
         current_size = os.fstat(fd).st_size
         final_size = current_size + size
         if final_size > app.config.MAX_SINGLE_FILE_BYTES:

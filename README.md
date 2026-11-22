@@ -224,12 +224,13 @@ duachuot_geo_verify          # conclude only with >= 2 independent facts; fewer 
 duachuot_geo_landmark_check  # radius check around a landmark
 duachuot_timezone_at         # offline timezone/UTC offset from coordinates
 
-# Probes
-duachuot_media_probe         # file + exiftool JSON + ffprobe
-duachuot_pcap_probe          # conversations/endpoints/DNS + GPS hints (NMEA, Wi-Fi probes)
-duachuot_disk_probe          # fsstat + fls
-duachuot_mem_probe           # Volatility 3 (info/pslist)
-duachuot_stego_probe         # binwalk + steghide, WAV LSB detection, LSB/MP3 extraction
+# Probes & Forensics
+duachuot_forensics_triage    # universal triage: hashes, Shannon entropy, embedded signatures, flags
+duachuot_media_probe         # file + exiftool JSON + ffprobe + hashes + entropy
+duachuot_pcap_probe          # flows/endpoints/DNS + pure-Python fallback + GPS hints (NMEA)
+duachuot_disk_probe          # fsstat + fls + partition table inspection
+duachuot_mem_probe           # Volatility 3 (info/pslist) with evidenced profile check
+duachuot_stego_probe         # PNG chunk/CRC/overlay, JPEG markers, WAV LSB bias, binwalk + steghide
 duachuot_ocr_probe           # tesseract + QR (zxing-cpp)
 duachuot_win_probe           # SAM/SYSTEM hives, LNK, prefetch (pure-Python, Linux/Windows)
 

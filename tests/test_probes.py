@@ -17,8 +17,9 @@ import pytest
 from app.security import format_error_response
 from app.tools.probes import (
     duachuot_disk_probe,
-    duachuot_mem_probe,
+    duachuot_forensics_triage,
     duachuot_media_probe,
+    duachuot_mem_probe,
     duachuot_ocr_probe,
     duachuot_pcap_probe,
     duachuot_stego_probe,
@@ -269,3 +270,120 @@ def test_format_error_response_contract() -> None:
     response = format_error_response(FileNotFoundError("missing tool 'vol'"))
     assert response["ok"] is False
     assert "vol" in str(response["error"])
+
+
+def test_pcap_probe_pure_python_dissection(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    real_which = shutil.which
+    monkeypatch.setattr(shutil, "which", lambda name: None if name == "tshark" else real_which(name))
+    capture = tmp_path / "pure.pcap"
+    _make_pcap(capture)
+    result = duachuot_pcap_probe(str(capture))
+    assert result["ok"] is True
+    assert result["conversations"]["exit_code"] == 0
+    assert "example.com" in result["dns_queries"]["stdout"]
+    assert "GPRMC" in result["geo_hints"]["hits"]
+    assert result["summary"]["packet_count"] == 2
+
+
+def test_forensics_triage_detects_embedded_and_hashes(tmp_path: Path) -> None:
+    artifact = tmp_path / "evidence.bin"
+    content = bytearray(b"\xff\xd8\xff\xe0\x00\x10JFIF\x00" + b"\x00" * 118)
+    content.extend(b"PK\x03\x04" + b"\x00" * 20 + b"FLAG{forensics_triage_mastery}" + b"\x00" * 20)
+    artifact.write_bytes(bytes(content))
+
+    result = duachuot_forensics_triage(str(artifact))
+    assert result["ok"] is True
+    assert len(result["hashes"]["md5"]) == 32
+    assert len(result["hashes"]["sha256"]) == 64
+    assert result["flags_found"] == ["FLAG{forensics_triage_mastery}"]
+    assert any("Zip" in c["signature"] for c in result["embedded_carve_candidates"])
+    assert len(result["recommendations"]) > 0
+
+
+def test_png_stego_analysis_detects_trailing_overlay(tmp_path: Path) -> None:
+    png = tmp_path / "stego_overlay.png"
+    import zlib
+
+    def chunk(tag: bytes, data: bytes) -> bytes:
+        return struct.pack(">I", len(data)) + tag + data + struct.pack(">I", zlib.crc32(tag + data) & 0xFFFFFFFF)
+
+    ihdr = struct.pack(">IIBBBBB", 32, 32, 8, 2, 0, 0, 0)
+    row = b"\x00" + b"\x00\x00\x00" * 32
+    raw_data = zlib.compress(row * 32)
+    png_bytes = (
+        b"\x89PNG\r\n\x1a\n"
+        + chunk(b"IHDR", ihdr)
+        + chunk(b"IDAT", raw_data)
+        + chunk(b"IEND", b"")
+    )
+    trailing = b"PK\x03\x04" + b"\x00" * 10 + b"CTF{trailing_overlay_discovered}"
+    png.write_bytes(png_bytes + trailing)
+
+    result = duachuot_stego_probe(str(png))
+    assert result["ok"] is True
+    assert result["kind"] == "png_bmp"
+    assert "png_analysis" in result
+    analysis = result["png_analysis"]
+    assert analysis["has_trailing_data"] is True
+    assert "Zip archive" in analysis["trailing_magic"]
+    assert "CTF{trailing_overlay_discovered}" in analysis["flags_found"]
+
+
+def test_png_dimension_tampering_crc_repair(tmp_path: Path) -> None:
+    png = tmp_path / "tampered.png"
+    import zlib
+
+    def chunk(tag: bytes, data: bytes) -> bytes:
+        return struct.pack(">I", len(data)) + tag + data + struct.pack(">I", zlib.crc32(tag + data) & 0xFFFFFFFF)
+
+    ihdr_original = struct.pack(">IIBBBBB", 64, 64, 8, 2, 0, 0, 0)
+    original_crc = zlib.crc32(b"IHDR" + ihdr_original) & 0xFFFFFFFF
+
+    ihdr_tampered = struct.pack(">IIBBBBB", 64, 1, 8, 2, 0, 0, 0)
+    row = b"\x00" + b"\x00\x00\x00" * 64
+    raw_data = zlib.compress(row * 64)
+
+    tampered_chunk = struct.pack(">I", 13) + b"IHDR" + ihdr_tampered + struct.pack(">I", original_crc)
+    png_bytes = (
+        b"\x89PNG\r\n\x1a\n"
+        + tampered_chunk
+        + chunk(b"IDAT", raw_data)
+        + chunk(b"IEND", b"")
+    )
+    png.write_bytes(png_bytes)
+
+    result = duachuot_stego_probe(str(png))
+    assert result["ok"] is True
+    analysis = result["png_analysis"]
+    assert analysis["ihdr_dimension_tampering"] is True
+    assert analysis["suggested_height"] == 64
+
+
+def test_shannon_entropy_calculation(tmp_path: Path) -> None:
+    from app.tools.probes import _shannon_entropy
+
+    zero_file = tmp_path / "zeros.bin"
+    zero_file.write_bytes(b"\x00" * 10000)
+    assert _shannon_entropy(str(zero_file))["entropy"] == 0.0
+
+    random_file = tmp_path / "random.bin"
+    import random
+
+    rng = random.Random(42)
+    random_file.write_bytes(bytes(rng.randrange(0, 256) for _ in range(10000)))
+    entropy_result = _shannon_entropy(str(random_file))
+    assert entropy_result["entropy"] > 7.5
+    assert "high" in entropy_result["verdict"]
+
+
+def test_cli_forensics_commands(tmp_path: Path) -> None:
+    from app.cli.main import main
+
+    evidence = tmp_path / "ev.bin"
+    evidence.write_bytes(b"PK\x03\x04" + b"\x00" * 30 + b"FLAG{cli_forensics_ok}")
+
+    ret = main(["forensics", "triage", str(evidence), "--json"])
+    assert ret == 0
+
+    ret = main(["forensics", "stego", str(evidence)])
+    assert ret == 0

@@ -26,6 +26,101 @@ def handle_ops(ctx: CLIContext, args) -> int:
     raise ValueError(f"Unsupported ops command: {args.ops_command}")
 
 
+def handle_forensics(ctx: CLIContext, args) -> int:
+    from app.tools.probes import duachuot_forensics_triage, duachuot_pcap_probe, duachuot_stego_probe
+
+    if args.forensics_command == "triage":
+        result = duachuot_forensics_triage(args.path)
+        if ctx.json_output:
+            emit_json(result)
+            return 0 if result.get("ok") else 1
+        if not result.get("ok"):
+            print(f"Error: {result.get('error', {}).get('message', 'triage failed')}")
+            return 1
+        rows = [
+            ("Artifact", result["path"]),
+            ("Size", f"{result['size_bytes']} bytes"),
+            ("File Type", result["file_type"]),
+            ("MD5", result["hashes"]["md5"]),
+            ("SHA256", result["hashes"]["sha256"]),
+            ("Entropy", f"{result['entropy']['entropy']} / 8.0 ({result['entropy']['verdict']})"),
+            ("Flags Found", ", ".join(result["flags_found"]) or "none"),
+            ("Embedded Carve", f"{len(result['embedded_carve_candidates'])} candidates"),
+        ]
+        key_values(rows)
+        if result.get("recommendations"):
+            print("\nRecommendations:")
+            for rec in result["recommendations"]:
+                print(f"  • {rec}")
+        return 0
+
+    if args.forensics_command == "stego":
+        result = duachuot_stego_probe(args.path)
+        if ctx.json_output:
+            emit_json(result)
+            return 0 if result.get("ok") else 1
+        if not result.get("ok"):
+            print(f"Error: {result.get('error', {}).get('message', 'stego probe failed')}")
+            return 1
+        rows = [
+            ("Artifact", result["path"]),
+            ("Carrier Kind", result.get("kind", "unknown")),
+            ("MD5", result.get("hashes", {}).get("md5", "n/a")),
+            ("Entropy", f"{result.get('entropy', {}).get('entropy', 'n/a')} / 8.0"),
+        ]
+        if "png_analysis" in result:
+            png = result["png_analysis"]
+            rows.extend(
+                [
+                    ("PNG Chunks", str(png.get("chunk_count"))),
+                    (
+                        "Trailing Bytes",
+                        f"{png.get('trailing_bytes_count')} ({png.get('trailing_magic') or 'none'})",
+                    ),
+                    (
+                        "Dimension Tampering",
+                        f"DETECTED (suggested: {png.get('suggested_height')})"
+                        if png.get("ihdr_dimension_tampering")
+                        else "no",
+                    ),
+                    ("Flags In Stego", ", ".join(png.get("flags_found", [])) or "none"),
+                ]
+            )
+        if "lsb_analysis" in result:
+            lsb = result["lsb_analysis"]
+            rows.extend(
+                [
+                    ("WAV LSB Deviation", str(lsb.get("deviation_from_0_5"))),
+                    ("LSB Suspicious", "YES" if lsb.get("suspicious") else "no"),
+                ]
+            )
+        key_values(rows)
+        return 0
+
+    if args.forensics_command == "pcap":
+        result = duachuot_pcap_probe(args.path, max_flows=getattr(args, "max_flows", 30))
+        if ctx.json_output:
+            emit_json(result)
+            return 0 if result.get("ok") else 1
+        if not result.get("ok"):
+            print(f"Error: {result.get('error', {}).get('message', 'pcap probe failed')}")
+            return 1
+        rows = [
+            ("Capture", result["path"]),
+            ("MD5", result.get("hashes", {}).get("md5", "n/a")),
+            ("Packets", str(result.get("summary", {}).get("packet_count", "n/a"))),
+            ("Geo Hits", ", ".join(result.get("geo_hints", {}).get("hits", [])) or "none"),
+        ]
+        key_values(rows)
+        if result.get("dns_queries", {}).get("stdout"):
+            print("\nDNS Queries:")
+            for line in result["dns_queries"]["stdout"].splitlines()[:15]:
+                print(f"  • {line}")
+        return 0
+
+    raise ValueError(f"Unsupported forensics command: {args.forensics_command}")
+
+
 def _dump(ctx: CLIContext, payload: dict[str, Any], rows: list[tuple[str, str]]) -> int:
     if ctx.json_output:
         emit_json(payload)

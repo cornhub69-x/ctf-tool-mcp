@@ -11,6 +11,7 @@ from app.cli.commands.doctor import handle_doctor
 from app.cli.commands.filesystem import handle_filesystem
 from app.cli.commands.health import handle_capabilities, handle_health
 from app.cli.commands.investigation import (
+    handle_forensics,
     handle_geo,
     handle_ops,
     handle_platform,
@@ -146,6 +147,8 @@ def _dispatch(ctx: CLIContext, args) -> int:
         return handle_geo(ctx, args)
     if command == "ops":
         return handle_ops(ctx, args)
+    if command == "forensics":
+        return handle_forensics(ctx, args)
     if command == "platform":
         return handle_platform(ctx, args)
     if command == "completion":

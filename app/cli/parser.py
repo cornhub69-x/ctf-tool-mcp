@@ -237,5 +237,15 @@ def build_parser() -> argparse.ArgumentParser:
     platform_parser = commands.add_parser("platform", help="Probe host platform and tool availability")
     platform_parser.add_argument("--tool", help="Check availability of a specific tool")
 
+    forensics = commands.add_parser("forensics", help="CTF Forensics & artifact triage (triage, stego, pcap)")
+    forensics_commands = forensics.add_subparsers(dest="forensics_command", required=True)
+    forensics_triage = forensics_commands.add_parser("triage", help="Full forensic triage: hashes, entropy, embedded files, flags")
+    forensics_triage.add_argument("path", help="Path to evidence file")
+    forensics_stego = forensics_commands.add_parser("stego", help="Steganography & carrier analysis")
+    forensics_stego.add_argument("path", help="Path to carrier image/audio")
+    forensics_pcap = forensics_commands.add_parser("pcap", help="PCAP network conversation & DNS analysis")
+    forensics_pcap.add_argument("path", help="Path to capture file")
+    forensics_pcap.add_argument("--flows", type=int, default=30, dest="max_flows")
+
     commands.add_parser("version", help="Print CLI and service version")
     return parser
