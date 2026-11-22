@@ -94,20 +94,6 @@
       "invoke": "read /home/noname/ctf-tools/skills/ctf-misc/SKILL.md",
       "platform": "any"
     },
-    "ctf-osint": {
-      "name": "ctf-osint",
-      "category": "skill",
-      "path": "/home/noname/ctf-tools/skills/ctf-osint/SKILL.md",
-      "invoke": "read /home/noname/ctf-tools/skills/ctf-osint/SKILL.md",
-      "platform": "any"
-    },
-    "ctf-osint-plus": {
-      "name": "ctf-osint-plus",
-      "category": "skill",
-      "path": "/home/noname/ctf-tools/skills/ctf-osint-plus/SKILL.md",
-      "invoke": "read /home/noname/ctf-tools/skills/ctf-osint-plus/SKILL.md",
-      "platform": "any"
-    },
     "ctf-pattern-archive": {
       "name": "ctf-pattern-archive",
       "category": "skill",

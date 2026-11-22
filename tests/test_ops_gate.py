@@ -54,14 +54,9 @@ class TestOpsGate:
         assert verdict["allowed"] is True
 
     def test_mode_defaults_from_config(self):
-        previous = app.config.OSINT_MODE
-        app.config.OSINT_MODE = True
-        try:
-            verdict = gate_command("whois example.com", mode=None)
-            assert verdict["allowed"] is True  # investigation mode permits OSINT lookups
-            assert verdict["mode"] == "investigation"
-        finally:
-            app.config.OSINT_MODE = previous
+        verdict = gate_command("whois example.com", mode=None)
+        assert verdict["allowed"] is False
+        assert verdict["mode"] == "ctf-live"
 
 
 class TestRedact:

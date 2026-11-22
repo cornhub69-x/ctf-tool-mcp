@@ -69,7 +69,6 @@ RATE_LIMIT_MAX_REQUESTS = int(os.getenv("RATE_LIMIT_MAX_REQUESTS", "200"))
 RATE_LIMIT_WINDOW_SECONDS = int(os.getenv("RATE_LIMIT_WINDOW_SECONDS", "60"))
 RATE_LIMIT_MAX_CLIENTS = max(1, int(os.getenv("RATE_LIMIT_MAX_CLIENTS", "10000")))
 # --- CTF Tool MCP extensions ---
-OSINT_MODE = os.getenv("OSINT_MODE", "false").lower() == "true"
 CTF_LIVE_MODE = os.getenv("CTF_LIVE_MODE", "true").lower() == "true"
 DRY_RUN_DEFAULT = os.getenv("DRY_RUN_DEFAULT", "false").lower() == "true"
 OPSEC_JITTER_MIN_MS = max(0, int(os.getenv("OPSEC_JITTER_MIN_MS", "800")))

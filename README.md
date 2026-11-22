@@ -25,13 +25,11 @@ knowledge/
 ├── HOST_ENVIRONMENT.md
 ├── TOOL_CATALOG.json
 ├── GEO_PLAYBOOK.md
-├── FORENSICS_PLAYBOOK.md
-└── OSINT_PLAYBOOK.md
+└── FORENSICS_PLAYBOOK.md
 
 skills/
 ├── ctf-geo/
 ├── ctf-forensics-plus/
-├── ctf-osint-plus/
 └── ctf-stego-plus/
 
 datasets/
@@ -211,7 +209,7 @@ duachuot_knowledge
 
 `duachuot_run_command` has no `approval="approved"` parameter. Policy is decided entirely server-side.
 
-## Investigation tools (Forensics + OSINT + Geo)
+## Investigation tools (Forensics + Geo)
 
 CTF Tool MCP adds 21 dedicated investigation tools, fully offline and deterministic:
 
@@ -249,12 +247,11 @@ ctf-tools repository by `scripts/generate_resource_map.py` (skills, scripts,
 tools, bin entries, notes). Lookups return path + invoke template + availability;
 missing resources are BLOCKERs, never silent fallbacks.
 
-Full playbooks: `knowledge/GEO_PLAYBOOK.md`, `knowledge/FORENSICS_PLAYBOOK.md`, `knowledge/OSINT_PLAYBOOK.md`. Bundled skills: `skills/ctf-geo`, `skills/ctf-forensics-plus`, `skills/ctf-osint-plus`, `skills/ctf-stego-plus`.
+Full playbooks: `knowledge/GEO_PLAYBOOK.md`, `knowledge/FORENSICS_PLAYBOOK.md`. Bundled skills: `skills/ctf-geo`, `skills/ctf-forensics-plus`, `skills/ctf-stego-plus`.
 
 ## OPSEC (mandatory during CTF)
 
 - Default `ctf-live`: no public-source lookups (sherlock/maigret/whois/dnsrecon/search engines), no automated attack tools against scope, no automatic flag submission — always through a human.
-- `investigation` mode (`OSINT_MODE=true`) opens OSINT lookups scoped to what the operator specifies.
 - Between network queries: wait for `duachuot_ops_jitter()` (800–3000 ms).
 - Every coordinate conclusion needs >= 2 independent facts (verified via `duachuot_geo_verify`).
 

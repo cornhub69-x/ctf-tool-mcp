@@ -66,7 +66,7 @@ def gate_remote_request(
     mode: 'ctf-live' (default) or 'investigation'. dry_run: when True the
     request is described but NOT executed (caller responsibility).
     """
-    mode = mode or ("investigation" if app.config.OSINT_MODE else "ctf-live")
+    mode = mode or "ctf-live"
     dry_run = app.config.DRY_RUN_DEFAULT if dry_run is None else dry_run
 
     if not target or not str(target).strip():
@@ -75,7 +75,7 @@ def gate_remote_request(
     if _TELEMETRY_HOSTS.search(target):
         return _blocked(
             target, "telemetry_host", mode, dry_run,
-            "target matches a telemetry/geolocation/OSINT aggregation service; zero-telemetry rule",
+            "target matches a telemetry/geolocation service; zero-telemetry rule",
         )
 
     for tool in _FORBIDDEN_SCOPE_TOOLS:
@@ -117,7 +117,7 @@ def _is_public_discovery(target: str) -> bool:
 
 def gate_command(command: str, *, mode: str | None = None, dry_run: bool | None = None) -> dict[str, Any]:
     """Inspect a local host command for telemetry/scope/cleanliness violations."""
-    mode = mode or ("investigation" if app.config.OSINT_MODE else "ctf-live")
+    mode = mode or "ctf-live"
     dry_run = app.config.DRY_RUN_DEFAULT if dry_run is None else dry_run
 
     if _TELEMETRY_HOSTS.search(command):

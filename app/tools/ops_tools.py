@@ -159,19 +159,13 @@ def duachuot_plan(
             "artifacts": artifact_paths,
             "steps": steps,
             "opsec": {
-                "mode": "investigation" if _osint_mode() else "ctf-live",
+                "mode": "ctf-live",
                 "remote_minimal": True,
                 "human_submission": True,
             },
         }
     except Exception as exc:
         return format_error_response(exc)
-
-
-def _osint_mode() -> bool:
-    import app.config
-
-    return app.config.OSINT_MODE
 
 @mcp.tool(
     name="duachuot_resource_lookup",

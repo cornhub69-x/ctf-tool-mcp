@@ -446,72 +446,6 @@
     ]
   },
   {
-    "name": "theHarvester",
-    "category": "osint",
-    "purpose": "Email, subdomain, IP, and virtual host enumeration from public sources.",
-    "usage_notes": [
-      "Supports sources: google, bing, baidu, yahoo, crtsh, dnsdumpster, hunter, threatcrowd, etc."
-    ],
-    "version_args": [
-      "-h"
-    ]
-  },
-  {
-    "name": "sherlock",
-    "category": "osint",
-    "purpose": "Search username across 400+ social networks.",
-    "usage_notes": [
-      "Use --timeout to avoid rate limits; --output for results file."
-    ],
-    "version_args": [
-      "--help"
-    ]
-  },
-  {
-    "name": "holehe",
-    "category": "osint",
-    "purpose": "Check if an email is registered on various web services.",
-    "usage_notes": [
-      "Supports --only-used and --no-color flags."
-    ],
-    "version_args": [
-      "--help"
-    ]
-  },
-  {
-    "name": "maigret",
-    "category": "osint",
-    "purpose": "Advanced username search across 2500+ sites with rich report output.",
-    "usage_notes": [
-      "Generates HTML/JSON reports; supports --pdf, --all-sites, --retries."
-    ],
-    "version_args": [
-      "--help"
-    ]
-  },
-  {
-    "name": "shodan",
-    "category": "osint",
-    "purpose": "Shodan API client for Internet-connected device search.",
-    "usage_notes": [
-      "Requires API key (SHODAN_API_KEY); subcommands: search, host, scan, info."
-    ],
-    "version_args": [
-      "--version"
-    ]
-  },
-  {
-    "name": "censys",
-    "category": "osint",
-    "purpose": "Censys search and enumeration CLI for Internet assets.",
-    "usage_notes": [
-      "Requires CENSYS_API_ID and CENSYS_API_SECRET env vars."
-    ],
-    "version_args": [
-      "--version"
-    ]
-  },
-  {
     "name": "whatweb",
     "category": "web",
     "purpose": "Fingerprint web technologies, CMS versions, and server info.",
@@ -531,17 +465,6 @@
     ],
     "version_args": [
       "--help"
-    ]
-  },
-  {
-    "name": "whois",
-    "category": "osint",
-    "purpose": "Query domain registration and IP whois databases.",
-    "usage_notes": [
-      "Directly follow with domain or IP; -h for whois server override."
-    ],
-    "version_args": [
-      "--version"
     ]
   },
   {

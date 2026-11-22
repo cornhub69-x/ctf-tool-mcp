@@ -1,6 +1,6 @@
 # CTF TOOL MCP — MASTER PLAN
 
-> An MCP bot built on the BotQuangAnh platform, specialized in **Forensics + OSINT**,
+> An MCP bot built on the BotQuangAnh platform, specialized in **Forensics + Stego + Geo**,
 > optimized for **leveraging installed tools** and **precise coordinate determination**.
 > Not detectable as an AI agent during competitions (invisible architecture, like BotQuangAnh).
 > Runs on **any Linux arch/distro + Windows**.
@@ -89,7 +89,7 @@ extract evidence from images/videos/audio/PCAP/disk/memory → determine
                                 │
 ┌───────────────────────────────▼──────────────────────────────────────────┐
 │                  SKILLS  (skills/ + inherited ctf-tools/skills)          │
-│  NEW: ctf-forensics-plus · ctf-osint-plus · ctf-stego-plus · ctf-geo     │
+│  NEW: ctf-forensics-plus · ctf-stego-plus · ctf-geo                       │
 │  INHERITED: solve-challenge · ctf-writeup · ctf-pattern-archive · policy │
 └───────────────────────────────┬──────────────────────────────────────────┘
                                 │ real PATH (version probe)
@@ -173,8 +173,8 @@ ctf_tool_mcp/
 │   ├── mcp_server.py  # + rest_api.py + config.py
 ├── knowledge/
 │   ├── WORKING_GUIDE.md · HOST_ENVIRONMENT.md · TOOL_CATALOG.json
-│   ├── FORENSICS_PLAYBOOK.md · OSINT_PLAYBOOK.md · GEO_PLAYBOOK.md
-├── skills/            # ctf-forensics-plus, ctf-osint-plus, ctf-stego-plus, ctf-geo
+│   ├── FORENSICS_PLAYBOOK.md · GEO_PLAYBOOK.md
+├── skills/            # ctf-forensics-plus, ctf-stego-plus, ctf-geo
 │                       + symlinks to ctf-tools/skills (inherited)
 ├── datasets/          # timezone map · landmark db · ellipsoid params (offline)
 ├── resources/         # RESOURCE_MAP.json (generated from the ctf-tools repo at install)
@@ -237,7 +237,7 @@ required platform. Missing resource → BLOCKER, never run the wrong thing.
 
 ## 8. TWO-MODE POLICY
 
-| | **ctf-live** (default) | **investigation** (`OSINT_MODE=on`) |
+| | **ctf-live** (strict default) | **investigation** (operator scope) |
 |---|---|---|
 | Web search / public sources | ❌ forbidden | ✅ only user-designated sources |
 | sherlock/maigret/holehe/theHarvester/whois/dnsrecon | ❌ forbidden | ✅ narrow scope, user-approved |
@@ -342,8 +342,8 @@ fs_replace · fs_append · fs_mkdir · fs_search · cmd_check · cmd_run · know
 | **M2 Geo Engine** | 5 `app/geo/` modules + round-trip tests (DMS<->decimal<->UTM, datum) | `pytest tests/geo/` + 1 real GPS photo |
 | **M3 Tool Matrix** | TOOL_CATALOG +30 tools, install geographiclib/piexif/zxing-cpp/tesseract, Platform Adapter | `duachuot knowledge tools --query geo --versions` |
 | **M4 Skills** | 4 new skills + playbooks + routing from solve-challenge | run triage → correct skill |
-| **M5 OPSEC + 2 modes** | OPSEC gate, `OSINT_MODE`, two-mode policy, win_probe | test case: GPS photo + username + domain |
-| **M6 Dogfood** | 2 forensics + 2 OSINT sample challenges, write solve_log + writeup | 4/4 with confidence score |
+| **M5 OPSEC policy** | OPSEC gate, strict ctf-live policy, win_probe | test case: GPS photo + win artifacts |
+| **M6 Dogfood** | 4 forensics/geo sample challenges, write solve_log + writeup | 4/4 with confidence score |
 
 ---
 

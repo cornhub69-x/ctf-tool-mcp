@@ -1,6 +1,6 @@
 # Investigation Subsystem — CTF Tool MCP
 
-Technical documentation for the investigation stack (Forensics + OSINT + Geo) of CTF Tool MCP:
+Technical documentation for the investigation stack (Forensics + Geo) of CTF Tool MCP:
 `app/geo/`, `app/ops/`, `app/platform/`, the new `duachuot_*` MCP tools, playbooks
 and skills. Complements `ARCHITECTURE.md` (runtime) and `SECURITY.md` (security).
 
@@ -41,8 +41,7 @@ Notable design decisions:
 - `jitter_delay()` / `suggest_jitter_seconds()` — 800–3000 ms delay between network
   queries (human-like pacing, no parallel bursts).
 
-Default mode is `ctf-live` from `app.config.OSINT_MODE` (False). Set
-`OSINT_MODE=true` only when the operator confirms the challenge allows external lookups.
+Default mode is strictly `ctf-live`. Outbound discovery tools and telemetry are blocked.
 
 ## 3. Platform Adapter (`app/platform/`)
 
