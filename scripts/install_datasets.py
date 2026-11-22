@@ -1,4 +1,4 @@
-"""Validate (and optionally extend) BotDuaChuot offline datasets.
+"""Validate (and optionally extend) CTF Tool MCP offline datasets.
 
 Usage:
     python scripts/install_datasets.py            # validate local datasets

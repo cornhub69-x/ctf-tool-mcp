@@ -1,4 +1,4 @@
-# BOT DUA CHUOT (BotDuachuot) — MASTER PLAN
+# CTF TOOL MCP — MASTER PLAN
 
 > An MCP bot built on the BotQuangAnh platform, specialized in **Forensics + OSINT**,
 > optimized for **leveraging installed tools** and **precise coordinate determination**.
@@ -30,7 +30,7 @@
 
 ## 1. VISION & 5 PRINCIPLES
 
-BotDuaChuot = "digital investigation assistant" (not a general-purpose CTF solver):
+CTF Tool MCP = "digital investigation assistant" (not a general-purpose CTF solver):
 extract evidence from images/videos/audio/PCAP/disk/memory → determine
 **precise coordinates** → cross-check with >= 2 independent facts → conclude with confidence.
 
@@ -56,7 +56,7 @@ extract evidence from images/videos/audio/PCAP/disk/memory → determine
                                 │ MCP streamable HTTP (stateless JSON)
                                 │ Cloudflare Tunnel (operator only, auth required)
 ┌───────────────────────────────▼──────────────────────────────────────────┐
-│                      botduachuot_mcp — MCP SERVER                        │
+│                      ctf_tool_mcp — MCP SERVER                        │
 │                                                                          │
 │  ┌─────────────────────────────┐   ┌───────────────────────────────────┐ │
 │  │  CORE (inherited)           │   │  INVESTIGATION TOOLS (new)        │ │
@@ -158,7 +158,7 @@ Evidence (image/video/pcap/disk/mem)
 ## 5. DIRECTORY STRUCTURE
 
 ```
-botduachuot_mcp/
+ctf_tool_mcp/
 ├── app/
 │   ├── host/          # files, executor (shell-aware), policy, inventory
 │   ├── tools/         # MCP adapters: core + investigation tools
@@ -251,7 +251,7 @@ required platform. Missing resource → BLOCKER, never run the wrong thing.
 
 ## 9. ANTI-DETECTION — INVISIBLE ARCHITECTURE (like BotQuangAnh)
 
-**Principle**: like BotQuangAnh, BotDuaChuot cannot be detected as an AI agent
+**Principle**: like BotQuangAnh, CTF Tool MCP cannot be detected as an AI agent
 because the MCP runs locally — the CTF server only sees HTTP from the user's
 IP/machine. Bot Dua Chuot keeps the same model:
 

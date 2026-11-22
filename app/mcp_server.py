@@ -16,7 +16,7 @@ from app.error_contract import format_error_code
 from app.metrics import metrics
 from app.ratelimit import rate_limiter
 
-logger = logging.getLogger("botduachuot_host_mcp")
+logger = logging.getLogger("ctf_tool_mcp")
 FASTMCP_COMPAT_VERSION = "3.4.0"
 
 if getattr(fastmcp, "__version__", "") != FASTMCP_COMPAT_VERSION:
@@ -188,7 +188,7 @@ def _chatgpt_http_app(self, *args, **kwargs):
 FastMCP.http_app = _chatgpt_http_app
 
 mcp = FastMCP(
-    "BotDuaChuot Host MCP",
+    "CTF Tool MCP",
     version=VERSION,
     instructions=(
         "Host-only MCP server. Use duachuot_knowledge before unfamiliar host work, "

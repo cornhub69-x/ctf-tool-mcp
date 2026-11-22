@@ -73,7 +73,7 @@ def _executable_check(name: str, path: Path) -> dict[str, str]:
 
 def _package_check() -> dict[str, str]:
     try:
-        installed = version("botduachuot-host-mcp")
+        installed = version("ctf-tool-mcp")
     except PackageNotFoundError:
         return _check("editable_package", "fail", "package metadata not installed")
     return _check("editable_package", "pass", installed)

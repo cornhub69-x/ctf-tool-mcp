@@ -3,7 +3,7 @@
 ## 1. Installation
 
 ```bash
-cd /home/light/GitHub/botduachuot_mcp
+cd /home/light/GitHub/ctf_tool_mcp
 ./scripts/install_basic.sh
 ```
 

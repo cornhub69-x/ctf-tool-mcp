@@ -65,7 +65,7 @@ def _content_source(parser: argparse.ArgumentParser) -> None:
 def build_parser() -> argparse.ArgumentParser:
     parser = CLIArgumentParser(
         prog="duachuot",
-        description="Operate BotDuaChuot Host MCP and call its REST API.",
+        description="Operate CTF Tool MCP and call its REST API.",
     )
     _add_global_options(parser)
     commands = parser.add_subparsers(dest="command", required=True)

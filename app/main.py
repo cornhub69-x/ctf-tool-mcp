@@ -10,7 +10,7 @@ from app.mcp_server import mcp
 import app.tools.health  # noqa: E402,F401
 import app.tools.host  # noqa: E402,F401
 import app.tools.host_knowledge  # noqa: E402,F401
-# BotDuaChuot investigation extensions.
+# CTF Tool MCP investigation extensions.
 import app.tools.geo_tools  # noqa: E402,F401
 import app.tools.probes  # noqa: E402,F401
 import app.tools.ops_tools  # noqa: E402,F401

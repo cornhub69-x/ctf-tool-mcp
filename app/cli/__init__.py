@@ -1,4 +1,4 @@
-"""Command-line interface for BotDuaChuot Host MCP."""
+"""Command-line interface for CTF Tool MCP."""
 
 from app.config import VERSION
 

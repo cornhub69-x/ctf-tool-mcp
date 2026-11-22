@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "botduachuot-host-mcp"
+name = "ctf-tool-mcp"
 version = "1.0.0"
 description = "Host MCP server and duachuot operations CLI"
 readme = "README.md"
@@ -17,6 +17,7 @@ dependencies = [
 test = ["pytest==9.1.1"]
 
 [project.scripts]
+ctftool = "app.cli.main:main"
 duachuot = "app.cli.main:main"
 
 [tool.setuptools.packages.find]

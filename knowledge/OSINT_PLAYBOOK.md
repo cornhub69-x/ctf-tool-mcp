@@ -1,4 +1,4 @@
-# OSINT Playbook — BotDuaChuot
+# OSINT Playbook — CTF Tool MCP
 
 Standard playbook for **OSINT** tasks. Two modes: `ctf-live` (default, public discovery **blocked** — only local evidence is allowed) and `investigation` (`OSINT_MODE=true` allows public discovery).
 

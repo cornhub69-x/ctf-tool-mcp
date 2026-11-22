@@ -1,4 +1,4 @@
-"""BotDuaChuot Geo Engine package."""
+"""CTF Tool MCP Geo Engine package."""
 
 from app.geo.convert import (
     DATUMS,

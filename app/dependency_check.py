@@ -12,7 +12,7 @@ from packaging.version import InvalidVersion, Version
 
 
 PROJECT_ROOTS = (
-    "botduachuot-host-mcp",
+    "ctf-tool-mcp",
     "fastmcp",
     "python-dotenv",
     "pytest",

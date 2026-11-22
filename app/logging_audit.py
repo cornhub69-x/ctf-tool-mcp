@@ -19,7 +19,7 @@ from app.config import (
 )
 
 
-logger = logging.getLogger("botduachuot_audit")
+logger = logging.getLogger("ctf_tool_audit")
 logger.setLevel(logging.INFO)
 logger.propagate = False
 

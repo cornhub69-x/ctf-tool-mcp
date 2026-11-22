@@ -1,4 +1,4 @@
-# Geo Playbook — BotDuaChuot
+# Geo Playbook — CTF Tool MCP
 
 Standard playbook for every **coordinate / location** task in CTF. Goal: find precise coordinates, prove them with >= 2 independent facts, fully offline and deterministic.
 

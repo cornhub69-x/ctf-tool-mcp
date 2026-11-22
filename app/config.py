@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SERVICE_NAME = "botduachuot-host-mcp"
+SERVICE_NAME = "ctf-tool-mcp"
 VERSION = "1.0.0"
 
 MCP_BIND_HOST = os.getenv("MCP_BIND_HOST", "127.0.0.1")
@@ -68,7 +68,7 @@ RATE_LIMIT_ENABLED = os.getenv("RATE_LIMIT_ENABLED", "false").lower() == "true"
 RATE_LIMIT_MAX_REQUESTS = int(os.getenv("RATE_LIMIT_MAX_REQUESTS", "200"))
 RATE_LIMIT_WINDOW_SECONDS = int(os.getenv("RATE_LIMIT_WINDOW_SECONDS", "60"))
 RATE_LIMIT_MAX_CLIENTS = max(1, int(os.getenv("RATE_LIMIT_MAX_CLIENTS", "10000")))
-# --- BotDuaChuot extensions ---
+# --- CTF Tool MCP extensions ---
 OSINT_MODE = os.getenv("OSINT_MODE", "false").lower() == "true"
 CTF_LIVE_MODE = os.getenv("CTF_LIVE_MODE", "true").lower() == "true"
 DRY_RUN_DEFAULT = os.getenv("DRY_RUN_DEFAULT", "false").lower() == "true"

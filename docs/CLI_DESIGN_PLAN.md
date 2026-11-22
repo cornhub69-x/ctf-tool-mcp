@@ -2,7 +2,7 @@
 
 ## 1. Goals
 
-Design a unified CLI for the `botduachuot_mcp` repository serving two needs:
+Design a unified CLI for the `ctf_tool_mcp` repository serving two needs:
 
 1. Operate the local service, the server bridge and the Cloudflare Tunnel.
 2. Call the Host MCP/REST capabilities from the terminal without hand-writing `curl`.
@@ -281,7 +281,7 @@ GET /api/v1/health
 Human-readable output:
 
 ```text
-Service       botduachuot-host-mcp
+Service       ctf-tool-mcp
 Version       1.0.0
 Status        healthy
 Uptime        12m 31s
@@ -389,7 +389,7 @@ duachuot fs mkdir project/data --no-parents
 ### `duachuot fs search`
 
 ```bash
-duachuot fs search "FastMCP" --path GitHub/botduachuot_mcp
+duachuot fs search "FastMCP" --path GitHub/ctf_tool_mcp
 duachuot fs search "REQUIRE_AUTH" --case-sensitive --max 50
 ```
 
@@ -423,7 +423,7 @@ Message       Privilege escalation is blocked through MCP host tools.
 ### `duachuot cmd run`
 
 ```bash
-duachuot cmd run 'git status --short' --cwd GitHub/botduachuot_mcp
+duachuot cmd run 'git status --short' --cwd GitHub/ctf_tool_mcp
 duachuot cmd run --timeout 60 'pytest -q'
 ```
 
@@ -533,7 +533,7 @@ The real `GATEWAY_TOKEN` must never be printed unless an explicit flag says so, 
 ### `duachuot config path`
 
 ```text
-/home/light/GitHub/botduachuot_mcp/.env
+/home/light/GitHub/ctf_tool_mcp/.env
 ```
 
 ### `duachuot config validate`
@@ -720,7 +720,7 @@ Users can run:
 A local symlink can be created:
 
 ```bash
-ln -s /home/light/GitHub/botduachuot_mcp/bin/duachuot ~/.local/bin/duachuot
+ln -s /home/light/GitHub/ctf_tool_mcp/bin/duachuot ~/.local/bin/duachuot
 ```
 
 ### Packaging stage

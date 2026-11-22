@@ -1,1 +1,1 @@
-"""BotDuaChuot OPSEC package."""
+"""CTF Tool MCP OPSEC package."""

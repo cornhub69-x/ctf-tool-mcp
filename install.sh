@@ -2,7 +2,7 @@
 set -euo pipefail
 
 echo "=================================================="
-echo "      BotDuaChuot MCP & CLI Installer             "
+echo "      CTF Tool MCP MCP & CLI Installer             "
 echo "=================================================="
 
 fail() {
@@ -22,8 +22,8 @@ elif [ -f "$PWD/pyproject.toml" ] && [ -f "$PWD/bin/duachuot" ]; then
     # Supports: cat install.sh | bash while the shell is inside the repository.
     ROOT_DIR="$PWD"
 else
-    TARGET_REPO_URL="${DUACHUOT_REPO_URL:-https://github.com/cornhub69-x/botduachuot_mcp.git}"
-    TARGET_INSTALL_DIR="${DUACHUOT_INSTALL_DIR:-$HOME/.botduachuot_mcp}"
+    TARGET_REPO_URL="${DUACHUOT_REPO_URL:-https://github.com/cornhub69-x/ctf_tool_mcp.git}"
+    TARGET_INSTALL_DIR="${DUACHUOT_INSTALL_DIR:-$HOME/.ctf_tool_mcp}"
     TARGET_BRANCH="${DUACHUOT_BRANCH:-main}"
 
     command -v git >/dev/null 2>&1 || fail "git is required for remote installation."
@@ -62,7 +62,7 @@ else
 fi
 
 cd "$ROOT_DIR"
-[ -f pyproject.toml ] && [ -f bin/duachuot ] || fail "$ROOT_DIR is not a valid BotDuaChuot MCP repository."
+[ -f pyproject.toml ] && [ -f bin/duachuot ] || fail "$ROOT_DIR is not a valid CTF Tool MCP MCP repository."
 echo "[*] Repository location: $ROOT_DIR"
 
 PYTHON_BIN="$(command -v python3 || true)"

@@ -1,6 +1,6 @@
-# Investigation Subsystem — BotDuaChuot
+# Investigation Subsystem — CTF Tool MCP
 
-Technical documentation for the investigation stack (Forensics + OSINT + Geo) of BotDuaChuot:
+Technical documentation for the investigation stack (Forensics + OSINT + Geo) of CTF Tool MCP:
 `app/geo/`, `app/ops/`, `app/platform/`, the new `duachuot_*` MCP tools, playbooks
 and skills. Complements `ARCHITECTURE.md` (runtime) and `SECURITY.md` (security).
 

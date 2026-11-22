@@ -1,4 +1,4 @@
-# BotDuaChuot Host MCP
+# CTF Tool MCP
 
 A minimal MCP server that lets ChatGPT operate directly on your machine, scoped to `HOST_WORKSPACE_DIR`.
 
@@ -57,16 +57,16 @@ scripts/
 ### 1. One-line install (recommended)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/cornhub69-x/botduachuot_mcp/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/cornhub69-x/ctf_tool_mcp/main/install.sh | bash
 ```
 
-By default the script clones the `main` branch into `~/.botduachuot_mcp`, creates a `.venv`, installs dependencies, creates a `.env` with `600` permissions, and links the CLI at `~/.local/bin/duachuot`. Re-running the same command updates the installation via fast-forward; if the working tree has uncommitted files, the installer stops to avoid overwriting user data.
+By default the script clones the `main` branch into `~/.ctf_tool_mcp`, creates a `.venv`, installs dependencies, creates a `.env` with `600` permissions, and links the CLI at `~/.local/bin/duachuot`. Re-running the same command updates the installation via fast-forward; if the working tree has uncommitted files, the installer stops to avoid overwriting user data.
 
 It can be customized with environment variables:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/cornhub69-x/botduachuot_mcp/main/install.sh | \
-  DUACHUOT_INSTALL_DIR="$HOME/apps/botduachuot_mcp" \
+curl -fsSL https://raw.githubusercontent.com/cornhub69-x/ctf_tool_mcp/main/install.sh | \
+  DUACHUOT_INSTALL_DIR="$HOME/apps/ctf_tool_mcp" \
   DUACHUOT_BIN_DIR="$HOME/.local/bin" \
   DUACHUOT_BRANCH=main \
   bash
@@ -77,7 +77,7 @@ Supported variables: `DUACHUOT_REPO_URL`, `DUACHUOT_INSTALL_DIR`, `DUACHUOT_BIN_
 ### 2. Manual install from a local repository
 
 ```bash
-cd botduachuot_mcp
+cd ctf_tool_mcp
 ./install.sh
 ```
 
@@ -188,7 +188,7 @@ curl -X PUT \
 curl -X POST \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{"command":"git status --short","cwd":"GitHub/botduachuot_mcp"}' \
+  -d '{"command":"git status --short","cwd":"GitHub/ctf_tool_mcp"}' \
   "$BASE_URL/api/v1/commands/run"
 ```
 
@@ -213,7 +213,7 @@ duachuot_knowledge
 
 ## Investigation tools (Forensics + OSINT + Geo)
 
-BotDuaChuot adds 21 dedicated investigation tools, fully offline and deterministic:
+CTF Tool MCP adds 21 dedicated investigation tools, fully offline and deterministic:
 
 ```text
 # Geo Engine (offline, no network required)
@@ -333,9 +333,9 @@ duachuot fs ls GitHub
 duachuot fs cat GitHub/project/README.md --lines 1:40
 duachuot fs write GitHub/demo.txt --text "hello"
 printf 'next\n' | duachuot fs append GitHub/demo.txt --stdin
-duachuot fs search FastMCP --path GitHub/botduachuot_mcp
+duachuot fs search FastMCP --path GitHub/ctf_tool_mcp
 duachuot cmd check 'git status --short'
-duachuot cmd run 'git status --short' --cwd GitHub/botduachuot_mcp
+duachuot cmd run 'git status --short' --cwd GitHub/ctf_tool_mcp
 duachuot knowledge tools --query python --versions
 ```
 

@@ -1,4 +1,4 @@
-# Forensics Playbook — BotDuaChuot
+# Forensics Playbook — CTF Tool MCP
 
 Standard playbook for **forensics** tasks (media, pcap, disk, memory, stego, Windows artifacts). Evidence-first: only conclude with >= 2 independent facts, or 1 fact plus a clear chain of reasoning.
 

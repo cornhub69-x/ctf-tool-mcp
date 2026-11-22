@@ -10,7 +10,7 @@ MCP_PATH="${MCP_PATH:-/mcp}"
 LOOP_PID_FILE="logs/noauth_watchdog.pid"
 LOG="logs/noauth_watchdog.log"
 CONFIG="${NOAUTH_CONFIG:-$HOME/.config/opencode/opencode.jsonc}"
-CONFIG_KEY="botduachuot-host-mcp"
+CONFIG_KEY="ctf-tool-mcp"
 LAST_URL_FILE="logs/noauth_last_url.txt"
 
 mkdir -p logs

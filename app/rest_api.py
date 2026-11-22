@@ -80,7 +80,7 @@ async def api_index(_request: Request) -> JSONResponse:
     return JSONResponse(
         {
             "ok": True,
-            "name": "BotDuaChuot Host REST API",
+            "name": "CTF Tool MCP Host REST API",
             "version": "v1",
             "openapi": f"{API_PREFIX}/openapi.json",
             "endpoints": [
@@ -297,7 +297,7 @@ def openapi_document() -> dict[str, Any]:
     return {
         "openapi": "3.1.0",
         "info": {
-            "title": "BotDuaChuot Host REST API",
+            "title": "CTF Tool MCP Host REST API",
             "version": "1.0.0",
             "description": "REST access to the same host services exposed through MCP.",
         },
